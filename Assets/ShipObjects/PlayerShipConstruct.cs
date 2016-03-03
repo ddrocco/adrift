@@ -11,13 +11,30 @@ public class PlayerShipConstruct : ShipConstruct {
 			return _playergui;
 		}
 	}
+	// Remove public nature of scrapmetal and pick a new default.
+	public int scrapmetal = 500;
+	bool in_placement_mode = false;
 
 	void Start () {
 		base.Start();
+		playergui.scrapmetal.text = scrapmetal.ToString();
+		SetPlacementModeText();
 	}
 	
 	void Update () {
 		base.Update();
+		if (Input.GetKeyDown(KeyCode.P)) {
+			in_placement_mode = !in_placement_mode;
+			SetPlacementModeText();
+		}
+	}
+
+	void SetPlacementModeText() {
+		if (in_placement_mode) {
+			playergui.mode.text = "placement";
+		} else {
+			playergui.mode.text = "normal";
+		}
 	}
 	
 	protected override Vector2 GetThrustDirection() {

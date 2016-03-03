@@ -7,6 +7,8 @@ public class PlayerGUI : MonoBehaviour {
 	public Image navpad;
 	public Image navbead;
 	public Text navcoords;
+	public Text scrapmetal;
+	public Text mode;
 
 	// Use this for initialization
 	void Start () {
