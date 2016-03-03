@@ -3,10 +3,11 @@ using System.Collections;
 
 public class CannonPivot : MonoBehaviour {
     Mouse mouse;
+    public Crosshair crosshairPrefab;
+    Crosshair currentCrosshair;
 	// Use this for initialization
 	void Start () {
         mouse = Mouse.main;
-        mouse.OnMove += onMouseMove;
 	}
 	
 	// Update is called once per frame
@@ -18,16 +19,36 @@ public class CannonPivot : MonoBehaviour {
     {
         Vector3 direction = position - transform.position;
         direction.z = 0;
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-        Debug.DrawRay(transform.position, direction, Color.green, 1);
-        Debug.DrawRay(transform.position, forward, Color.yellow, 1);
         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-        Debug.Log(direction);
-        Debug.Log(forward);
     }
 
-    void onMouseMove(Vector3 position)
+    void OnMouseDown()
     {
-        LookAt(position);
+        //This function is called by Unity when a collider is clicked
+        mouse.OnMove += LookAt;
+        mouse.OnLeftClickUp += FireHandler;
+        currentCrosshair = GameObject.Instantiate(crosshairPrefab.gameObject).GetComponent<Crosshair>();
+    }
+
+    void Fire(Vector3 position)
+    {
+        Debug.Log("Boom!");
+    }
+
+    void FireHandler(Vector3 position)
+    {
+        Fire(position);
+        mouse.OnMove -= LookAt;
+        mouse.OnLeftClickUp -= FireHandler;
+        if(currentCrosshair != null)
+        {
+            GameObject.Destroy(currentCrosshair.gameObject);
+        }
+    }
+
+    void OnDestroy()
+    {
+        mouse.OnMove -= LookAt;
+        mouse.OnLeftClickUp -= FireHandler;
     }
 }

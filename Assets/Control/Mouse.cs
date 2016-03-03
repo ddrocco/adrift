@@ -19,8 +19,9 @@ public class Mouse : MonoBehaviour {
     Vector3 lastPosition;
     Camera cam;
 
-    Vector3 getWorldMousePosition()
+    public Vector3 getWorldMousePosition()
     {
+        if(cam == null) cam = Camera.main;
         Vector3 screenpos = Input.mousePosition;
         screenpos.z = cam.nearClipPlane;
         Vector3 worldpos = cam.ScreenToWorldPoint(screenpos);
@@ -30,7 +31,10 @@ public class Mouse : MonoBehaviour {
 
     void Start()
     {
-        cam = Camera.main;
+        if(cam == null)
+        {
+            cam = Camera.main;
+        }
         lastPosition = getWorldMousePosition();
     }
     void Update()
