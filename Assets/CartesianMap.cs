@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Xml.Linq;
+using UnityEngine.Networking.NetworkSystem;
 
 public class CartesianMap<t> {
 
@@ -11,30 +12,16 @@ public class CartesianMap<t> {
 
 		QuadrantCoordinates quadcoords = ConvertToQuadrants(x, y);
 		List<List<t>> grid = GetQuadrant(quadcoords.quadrant);
-		switch (quadcoords.quadrant) {
-			case Quadrant.first:
-				grid = _first;
-				break;
-			case Quadrant.second:
-				grid = _second;
-				break;
-			case Quadrant.third:
-				grid = _third;
-				break;
-			case Quadrant.fourth:
-				grid = _fourth;
-				break;
-		}
 		while (grid.Count <= quadcoords.x) {
 			grid.Add(new List<t>());
 		}
-		while (grid[x].Count <= quadcoords.y) {
-			grid[x].Add(default(t));
+		while (grid[quadcoords.x].Count <= quadcoords.y) {
+			grid[quadcoords.x].Add(default(t));
 		}
-		grid[x][y] = obj;
+		grid[quadcoords.x][quadcoords.y] = obj;
 	}
 
-	public t Get(int x, int y, t obj) {
+	public t Get(int x, int y) {
 	/* Fetches an object from the Cartesian Map at (x, y), or returns null if none exist. */
 
 		QuadrantCoordinates quadcoords = ConvertToQuadrants(x, y);
@@ -47,21 +34,21 @@ public class CartesianMap<t> {
 
 	/* Private Implementation Items */
 
+	// Items in the 1st cartesian quadrant (pos, pos)
+	List<List<t>> _first = new List<List<t>>();
+	// Items in the 2nd cartesian quadrant (neg, pos)
+	List<List<t>> _second = new List<List<t>>();
+	// Items in the 3rd cartesian quadrant (neg, neg)
+	List<List<t>> _third = new List<List<t>>();
+	// Items in the 4th cartesian quadrant (pos, neg)
+	List<List<t>> _fourth = new List<List<t>>();
+
 	private enum Quadrant {
 		first,
 		second,
 		third,
 		fourth
 	};
-
-	// Items in the 1st cartesian quadrant (pos, pos)
-	private List<List<t>> _first;
-	// Items in the 2nd cartesian quadrant (neg, pos)
-	private List<List<t>> _second;
-	// Items in the 3rd cartesian quadrant (neg, neg)
-	private List<List<t>> _third;
-	// Items in the 4th cartesian quadrant (pos, neg)
-	private List<List<t>> _fourth;
 
 	struct QuadrantCoordinates {
 		public Quadrant quadrant;

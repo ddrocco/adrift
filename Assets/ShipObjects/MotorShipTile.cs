@@ -7,14 +7,14 @@ public class MotorShipTile : ShipTile {
 	float aftstrength = 0.25f;
 	
 	// Use this for initialization
-	void Start () {
+	protected new void Start () {
 		base.Start();
 		color = Color.blue;
 		motorRunoff = null;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected new void Update () {
 		base.Update();
 	}
 	

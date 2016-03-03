@@ -15,18 +15,19 @@ public class PlayerShipConstruct : ShipConstruct {
 	public int scrapmetal = 500;
 	bool in_placement_mode = false;
 
-	void Start () {
+	protected new void Start () {
 		base.Start();
 		playergui.scrapmetal.text = scrapmetal.ToString();
 		SetPlacementModeText();
 	}
 	
-	void Update () {
+	protected new void Update () {
 		base.Update();
 		if (Input.GetKeyDown(KeyCode.P)) {
 			in_placement_mode = !in_placement_mode;
 			SetPlacementModeText();
 		}
+
 	}
 
 	void SetPlacementModeText() {

@@ -14,7 +14,7 @@ public class ShipConstruct : MonoBehaviour {
 		}
 	}
 
-	public void Start () {
+	protected virtual void Start () {
 		foreach (MotorShipTile motor in GetComponentsInChildren<MotorShipTile>()) {
 			motors.Add(motor);
 		}
@@ -23,7 +23,7 @@ public class ShipConstruct : MonoBehaviour {
 		}
 	}
 	
-	public void Update () {
+	protected virtual void Update () {
 		Move ();
 		transform.Translate(velocity);
 	}
