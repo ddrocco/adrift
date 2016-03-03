@@ -19,7 +19,7 @@ public class CannonPivot : MonoBehaviour {
     {
         Vector3 direction = position - transform.position;
         direction.z = 0;
-        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = Quaternion.LookRotation(direction, Vector3.back);
     }
 
     void OnMouseDown()
