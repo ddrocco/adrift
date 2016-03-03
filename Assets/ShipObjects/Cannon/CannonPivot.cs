@@ -4,6 +4,8 @@ using System.Collections;
 public class CannonPivot : MonoBehaviour {
     Mouse mouse;
     public Crosshair crosshairPrefab;
+    public GameObject round;
+    GameObject currentRound;
     Crosshair currentCrosshair;
 	// Use this for initialization
 	void Start () {
@@ -12,7 +14,6 @@ public class CannonPivot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     void LookAt(Vector3 position)
@@ -30,9 +31,35 @@ public class CannonPivot : MonoBehaviour {
         currentCrosshair = GameObject.Instantiate(crosshairPrefab.gameObject).GetComponent<Crosshair>();
     }
 
+    bool onFixed = false;
+    Vector3 onFixedPosition;
+
+    void FixedUpdate()
+    {
+        if(!onFixed)
+        {
+            return;
+        }
+        onFixed = false;
+        Vector3 position = onFixedPosition;
+        position.z = transform.parent.position.z;
+        currentRound = GameObject.Instantiate(round, transform.parent.position, Quaternion.identity) as GameObject;
+        Rigidbody body = currentRound.GetComponent<Rigidbody>();
+        Physics.IgnoreCollision(body.GetComponent<Collider>(), transform.GetComponent<Collider>());
+        Physics.IgnoreCollision(body.GetComponent<Collider>(), transform.parent.GetComponent<Collider>());
+
+        Vector3 direction = (position - transform.position).normalized;
+        direction.z = -1;
+        float distance = (position - transform.position).magnitude / 2;
+        float velocity = Mathf.Sqrt(distance * Physics.gravity.magnitude);
+        body.velocity = direction * velocity;
+        Debug.Log(body.velocity);
+    }
+
     void Fire(Vector3 position)
     {
-        Debug.Log("Boom!");
+        onFixedPosition = position;
+        onFixed = true;
     }
 
     void FireHandler(Vector3 position)
