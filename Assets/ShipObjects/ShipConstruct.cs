@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ShipConstruct : MonoBehaviour {
 	public List<ShipTile> tiles;
 	public List<MotorShipTile> motors;
-	public CartesianMap<ShipTile>
+	public CartesianMap<ShipTile> tilemap;
 	
 	Vector2 velocity = Vector2.zero;
 	protected float Mass {
