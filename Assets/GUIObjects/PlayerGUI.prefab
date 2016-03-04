@@ -97,6 +97,7 @@ GameObject:
   - 114: {fileID: 11441444}
   - 114: {fileID: 11429196}
   - 114: {fileID: 11443186}
+  - 114: {fileID: 11494296}
   m_Layer: 5
   m_Name: PlayerGUI
   m_TagString: Untagged
@@ -310,6 +311,19 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: <Placement Mode>
+--- !u!114 &11494296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b615deae488644f892f2f5d0265ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_ship: {fileID: 0}
+  edit_mode: 0
 --- !u!222 &22206006
 CanvasRenderer:
   m_ObjectHideFlags: 1

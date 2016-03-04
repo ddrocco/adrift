@@ -15,11 +15,16 @@ public class ShipConstruct : MonoBehaviour {
 	}
 
 	protected virtual void Start () {
+		tilemap = new CartesianMap<ShipTile>();
 		foreach (MotorShipTile motor in GetComponentsInChildren<MotorShipTile>()) {
 			motors.Add(motor);
 		}
 		foreach (ShipTile tile in GetComponentsInChildren<ShipTile>()) {
 			tiles.Add(tile);
+			tilemap.Insert(
+					(int)tile.gameObject.transform.position.x,
+					(int)tile.gameObject.transform.position.y,
+					tile);
 		}
 	}
 	
