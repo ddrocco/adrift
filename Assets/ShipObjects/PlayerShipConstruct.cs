@@ -11,12 +11,12 @@ public class PlayerShipConstruct : ShipConstruct {
 			return _playergui;
 		}
 	}
+
 	ShipTileEditor _ship_tile_editor;
-	ShipTileEditor ship_tile_editor{
+	ShipTileEditor ship_tile_editor {
 		get {
 			if (!_ship_tile_editor) {
-				_ship_tile_editor = ShipTileEditor.main;
-				_ship_tile_editor.player_ship = this;
+				_ship_tile_editor = FindObjectOfType<ShipTileEditor>();
 			}
 			return _ship_tile_editor;
 		}
@@ -24,7 +24,7 @@ public class PlayerShipConstruct : ShipConstruct {
 
 	// Remove public nature of scrapmetal and pick a new default.
 	public int scrapmetal = 500;
-	bool in_placement_mode = false;
+	public bool in_placement_mode = false;
 
 	protected new void Start () {
 		base.Start();

@@ -2,15 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.WSA;
 
 public class ShipTileEditor : MonoBehaviour {
 	public static ShipTileEditor main;
 
-	public PlayerShipConstruct player_ship;
-	public bool edit_mode;
+	PlayerShipConstruct _player_ship;
+	public PlayerShipConstruct player_ship {
+		get {
+			if (!_player_ship) {
+				_player_ship = FindObjectOfType<PlayerShipConstruct>();
+			}
+			return _player_ship;
+		}
+	}
 
-	CartesianMap<bool> _ConstructableTiles;
-	CartesianMap<bool> ConstructableTiles {
+	public struct TileCoordinates {
+		public int x;
+		public int y;
+		public ParticleSystem renderer;
+	}
+
+	List<TileCoordinates> _ConstructableTiles;
+	List<TileCoordinates> ConstructableTiles {
 		get {
 			if (!_needs_refresh) {
 				return _ConstructableTiles;
@@ -24,8 +38,11 @@ public class ShipTileEditor : MonoBehaviour {
 	bool _needs_refresh = true;
 
 	void RefreshConstructableTiles() {
-		_ConstructableTiles = new CartesianMap<bool>();
-		foreach (ShipTile tile in player_ship.tiles) {
+		foreach (TileCoordinates tile_coordinate in _ConstructableTiles) {
+			GameObject.Destroy(tile_coordinate.renderer);
+		}
+		_ConstructableTiles = new List<TileCoordinates>();
+		foreach (ShipTile tile in player_ship.tilemap.GetAllCached()) {
 			AddToConstructableTilesIfAvailable(tile.coordinates.x+1, tile.coordinates.y);
 			AddToConstructableTilesIfAvailable(tile.coordinates.x-1, tile.coordinates.y);
 			AddToConstructableTilesIfAvailable(tile.coordinates.x, tile.coordinates.y+1);
@@ -34,25 +51,32 @@ public class ShipTileEditor : MonoBehaviour {
 	}
 
 	void AddToConstructableTilesIfAvailable(int x, int y) {
-		if (player_ship.tilemap.Get(x, y) == default(bool)
-				&& ConstructableTiles.Get(x, y) == default(bool)) {
-			_ConstructableTiles.Insert(x, y, true);
+		ShipTile old_tile = player_ship.tilemap.Get(x, y);
+		if (!old_tile) {
+			if (!_ConstructableTiles.Exists(tile=> tile.x == x && tile.y ==y)) {
+				GameObject renderer = Instantiate(ParticleDict.get().potential_ship_tile) as GameObject;
+				renderer.transform.parent = player_ship.transform;
+				renderer.transform.localPosition = new Vector3(x, y, 0);
+				TileCoordinates tile_coordinates = new TileCoordinates {
+					x = x,
+					y = y,
+					renderer = renderer.GetComponent<ParticleSystem>()
+				};
+				_ConstructableTiles.Add(tile_coordinates);
+			}
 		}
 	}
 
 	// Use this for initialization
 	void Start () {
 		main = this;
-		edit_mode = false;
+		_ConstructableTiles = new List<TileCoordinates>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!edit_mode) {
+		if (!player_ship.in_placement_mode) {
 			return;
-		}
-		foreach (ShipTile tile in player_ship.tilemap.GetAll()) {
-			print(tile.coordinates.x + " " + tile.coordinates.y);
 		}
 	}
 }

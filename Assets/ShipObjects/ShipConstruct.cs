@@ -20,10 +20,13 @@ public class ShipConstruct : MonoBehaviour {
 			motors.Add(motor);
 		}
 		foreach (ShipTile tile in GetComponentsInChildren<ShipTile>()) {
+			tile.coordinates.x = Mathf.RoundToInt(tile.gameObject.transform.position.x);
+			tile.coordinates.y = Mathf.RoundToInt(tile.gameObject.transform.position.y);
+			tile.coordinates.attached = true;
 			tiles.Add(tile);
 			tilemap.Insert(
-					(int)tile.gameObject.transform.position.x,
-					(int)tile.gameObject.transform.position.y,
+					tile.coordinates.x,
+					tile.coordinates.y,
 					tile);
 		}
 	}
