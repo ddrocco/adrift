@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2357880}
   - 114: {fileID: 11421898}
   m_Layer: 0
-  m_Name: Cannon
+  m_Name: CannonShipTilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshairPrefab: {fileID: 11435082, guid: 220bfbe7af861b447b7fcd447fcdb54b, type: 2}
   round: {fileID: 193262, guid: 1aa9d9e8e1cafcf4fb3825ae22405723, type: 2}
-  lobAngle: 45
 --- !u!135 &13583950
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -261,7 +260,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: CannonShipTilePrefab
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174962}

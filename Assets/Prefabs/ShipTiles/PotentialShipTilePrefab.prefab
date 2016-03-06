@@ -10,7 +10,9 @@ GameObject:
   - 4: {fileID: 476806}
   - 198: {fileID: 19899862}
   - 199: {fileID: 19918528}
-  m_Layer: 0
+  - 114: {fileID: 11412742}
+  - 65: {fileID: 6526264}
+  m_Layer: 5
   m_Name: PotentialShipTilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,6 +31,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!65 &6526264
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11412742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213826d2353be72419af34791b948ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editor_index: 0
 --- !u!198 &19899862
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -83,7 +109,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 0.5
+      scalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1579,6 +1605,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: OpenShipTilePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

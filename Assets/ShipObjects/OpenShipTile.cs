@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEditor;
 
 public class OpenShipTile : ShipTile {
+/* A constructed ShipTile with nothing on it.  Can be outfitted as a functional tile.
+
+TODO(Derek): Add the ability to outfit to a functional tile.
+*/
 
 	public OpenShipTile(int x, int y) {
 		coordinates.x = x;

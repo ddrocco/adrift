@@ -20,7 +20,7 @@ public class ShipTile : MonoBehaviour {
 	/* Default interfaces */
 
 	public ShipTile() {
-		/* Default constructor for ABC ShipTile. Will only be called as a filler in datastructures. */
+	/* Default constructor for ABC ShipTile. Will only be called as a filler in datastructures. */
 		coordinates.attached = false;
 	}
 

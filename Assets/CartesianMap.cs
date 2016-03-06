@@ -8,13 +8,28 @@ using UnityEngine.Networking.Match;
 using System.IO;
 
 public class CartesianMap<t> {
+/* A generic container using two-tuple integer indices on a Cartesian Plane.
+
+Under-the-hood, is centered at the origin, and uses four List<List<t>>: one for each cartesian quadrant.
+
+By default, records all individual entries in write-order.
+The caching feature should not be used types which have non-null default values.
+*/
 	public CartesianMap(bool use_caching=true) {
+	/* A constructor for the CartesianMap.
+
+	If called with use_caching=false, disables the GetAll method.
+	If called with use_caching=true, records all individual entries in a list and enables the GetAll method.
+	*/
 		_use_caching = use_caching;
 	}
 
 	public void Insert(int x, int y, t obj) {
-	/* Inserts an object into the Cartesian Map at (x, y). */
+	/* Inserts an object into the Cartesian Map at (x, y).
 
+	If caching is enabled, also records that item in a List.
+	If an item is overwritten or deleted, also overwrites or deletes that item from a list.
+	*/
 		QuadrantCoordinates quadcoords = ConvertToQuadrants(x, y);
 		List<List<t>> grid = GetQuadrant(quadcoords.quadrant);
 		while (grid.Count <= quadcoords.x) {
@@ -65,7 +80,6 @@ public class CartesianMap<t> {
 
 	public t Get(int x, int y) {
 	/* Fetches an object from the Cartesian Map at (x, y), or returns null if none exist. */
-
 		QuadrantCoordinates quadcoords = ConvertToQuadrants(x, y);
 		List<List<t>> grid = GetQuadrant(quadcoords.quadrant);
 		if (grid.Count <= quadcoords.x || grid[quadcoords.x].Count <= quadcoords.y) {
@@ -93,7 +107,10 @@ public class CartesianMap<t> {
 	}
 
 	public List<t> GetAllCached() {
-	/* Fetches all non-null objects from the Cartesian Map. */
+	/* Fetches all non-null objects from the Cartesian Map.
+
+	Requires that caching is enabled.
+	*/
 		if (!_use_caching) {
 			throw new ArgumentException("GetAllCached no available for CartesianMap(caching=fale).");
 		}
@@ -127,18 +144,24 @@ public class CartesianMap<t> {
 	};
 
 	struct QuadrantCoordinates {
+	/* Distinct from CartesianMapCoordinates.
+
+	A struct of Quadrant-indexable values.  x and y must be positive.
+	*/
 		public Quadrant quadrant;
 		public int x;
 		public int y;
 	}
 
 	public struct CartesianItem {
+	/* A single item and its location in the CartesianMap. */
 		public int x;
 		public int y;
 		public t item;
 	}
 
 	QuadrantCoordinates ConvertToQuadrants(int x, int y) {
+	/* Converts Cartesian coordinates to Quadrant coordinates, thereby implicitly allowing negative indexing. */
 		bool x_positive = true;
 		bool y_positive = true;
 		if (x < 0) {
@@ -171,6 +194,10 @@ public class CartesianMap<t> {
 	}
 
 	List<List<t>> GetQuadrant(Quadrant quadrant) {
+	/* Accesses a Quadrant from its associated enum.
+
+	This effectively serves as a 4-entry dictionary.
+	*/
 		switch (quadrant) {
 			case Quadrant.first:
 				return _first;

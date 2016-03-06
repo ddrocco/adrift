@@ -2,14 +2,15 @@
 using System.Collections;
 
 public class StoreroomShipTile : ShipTile {
+/* A constructed ShipTile which can store fuel, ammunition, and food.
 
-	// Use this for initialization
+Not yet implemented (functionally an OpenTile). */
+
 	protected new void Start () {
 		base.Start();
 		color = Color.green;
 	}
-	
-	// Update is called once per frame
+
 	protected new void Update () {
 		base.Update();
 	}

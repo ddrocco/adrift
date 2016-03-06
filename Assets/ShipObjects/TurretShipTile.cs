@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class TurretShipTile : ShipTile {
+	/* TODO(Derek): Remove this and move some vestiges over to Ian's Cannon. */
 
 	// Use this for initialization
 	protected new void Start () {

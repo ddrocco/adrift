@@ -2,6 +2,12 @@
 using System.Collections;
 
 public class PlayerShipConstruct : ShipConstruct {
+/* A ShipConstruct which is controlled by the Player.
+
+The camera follows this Ship.
+
+Integrated with various UI objects.
+*/
 	PlayerGUI _playergui;
 	PlayerGUI playergui {
 		get {
@@ -33,15 +39,24 @@ public class PlayerShipConstruct : ShipConstruct {
 	}
 	
 	protected new void Update () {
+	/* In addition to ShipConstruct Update(), listens for mode swaps.
+
+	Swaps mode between Normal (firing) and Placement on P-keypress.
+	*/
 		base.Update();
 		if (Input.GetKeyDown(KeyCode.P)) {
 			in_placement_mode = !in_placement_mode;
 			SetPlacementModeText();
+			ShipTileEditor.main.SetConstructableTileVisibility(in_placement_mode);
 		}
 
 	}
 
 	void SetPlacementModeText() {
+	/* TODO(Derek): Remove this method and UI element once a better system is in place.
+
+	Updates the UI text to state whether the Player is in Normal (firing) mode or Placement mode.
+	*/
 		if (in_placement_mode) {
 			playergui.mode.text = "placement";
 		} else {
@@ -50,6 +65,12 @@ public class PlayerShipConstruct : ShipConstruct {
 	}
 	
 	protected override Vector2 GetThrustDirection() {
+	/* Overrides ShipConstruct's ThrustDirection.
+
+	Uses the controller to fetch MotorThrust.  Adjusts the UI NavigationBead accordingly.
+
+	TODO(Derek): Set this up to use the Controller -or- Keyboard.
+	*/
 		float x = 0;
 		if (Input.GetKey(KeyCode.D)) {
 			x += 1f;

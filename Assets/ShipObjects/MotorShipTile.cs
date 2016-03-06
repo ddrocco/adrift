@@ -2,18 +2,18 @@
 using System.Collections;
 
 public class MotorShipTile : ShipTile {
+/* A constructed ShipTile which can move the ShipConstruct. Provides Thrust in a direction. */
+
 	public Direction direction = Direction.north;
 	float forestrength = 1f;
 	float aftstrength = 0.25f;
-	
-	// Use this for initialization
+
 	protected new void Start () {
 		base.Start();
 		color = Color.blue;
 		motorRunoff = null;
 	}
-	
-	// Update is called once per frame
+
 	protected new void Update () {
 		base.Update();
 	}
@@ -38,6 +38,7 @@ public class MotorShipTile : ShipTile {
 	}
 	
 	public Vector2 GetThrust(Vector2 thrust_direction) {
+	/* Calculates the total thrust provided by this Motor, according to Thrust Force and Thrust Direction. */
 		float thrust_magnitude = Vector2.Dot(direction.vector2(), thrust_direction);
 		if (thrust_magnitude > 0) {
 			// Motor runs forward; use forestrength.

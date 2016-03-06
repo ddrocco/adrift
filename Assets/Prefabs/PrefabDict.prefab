@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76894c169ccd6e44ab21821dd9831de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  open_ship_tile: {fileID: 127066, guid: 0565574639ae52b45aa3078ffd58c7f9, type: 2}
 --- !u!114 &11426820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motor_runoff: {fileID: 117060, guid: 143817c72d03ef245aa09384750f2cc0, type: 2}
-  open_ship_tile: {fileID: 162742, guid: 7e573a83085884a44a30f7575fa62c6d, type: 2}
+  potential_ship_tile: {fileID: 162742, guid: 7e573a83085884a44a30f7575fa62c6d, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
