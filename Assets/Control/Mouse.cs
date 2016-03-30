@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 public class Mouse : MonoBehaviour {
     public delegate void MousePositionDelegate(Vector3 position);
     public event MousePositionDelegate OnMove;
@@ -11,8 +12,13 @@ public class Mouse : MonoBehaviour {
     static public Mouse main
     {
         get
-        {
-            return GameObject.FindGameObjectWithTag("Mouse").GetComponentInChildren<Mouse>();
+		{
+			try {
+				return GameObject.FindGameObjectWithTag("Mouse").GetComponentInChildren<Mouse>();
+			} catch (NullReferenceException) {
+				print("No mouse found!  Did you remember to include the Globals prefab?");
+				return null;
+			}
         }
     }
 
