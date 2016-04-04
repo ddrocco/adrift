@@ -12,7 +12,6 @@ public class ConstructStockpile : EditorContextMenuAction {
 
 	public override void PerformAction() {
 		/* Default action.  Should be overwritten by children. */
-		system.startColor = Color.magenta;
 	}
 
 	/* Virtual inherited methods */
