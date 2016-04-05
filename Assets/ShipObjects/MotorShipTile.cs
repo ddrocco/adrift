@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MotorShipTile : ShipTile {
 /* A constructed ShipTile which can move the ShipConstruct. Provides Thrust in a direction. */
@@ -51,5 +52,12 @@ public class MotorShipTile : ShipTile {
 			motorRunoff.startLifetime = thrust_magnitude * aftstrength;
 			return aftstrength * thrust_magnitude * direction.vector2();
 		}
+	}
+
+	public override EditorContextMenu AttachEditorContextMenu() {
+		/* Attaches a context menu to this ShipTile.  Overridden by each child.
+
+		This virtual implementation should never surface; it should always be overridden. */
+		throw new NotImplementedException("No override exists for MotorShipTile type for AttachEditorContextMenu!");
 	}
 }

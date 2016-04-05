@@ -5,10 +5,9 @@ using System;
 using UnityEngine.WSA;
 
 public class ShipTileEditor : MonoBehaviour {
-	/* An object for handling Ship edits (tile construction and modification).
+	/* An object for handling Ship edits (tile construction and modification). */
 
-	Since there's only ever one, this object has a static accessor.
-	*/
+	/* Since there's only ever one, this object has a static accessor. */
 	public static ShipTileEditor main;
 
 	PlayerShipConstruct _player_ship;
@@ -138,5 +137,9 @@ public class ShipTileEditor : MonoBehaviour {
 		if (!player_ship.in_placement_mode) {
 			return;
 		}
+	}
+
+	void OnDestroy() {
+		PlayerGUI.main.ShipTileDestroyed();
 	}
 }

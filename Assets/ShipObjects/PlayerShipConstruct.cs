@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.ComponentModel;
 
 public class PlayerShipConstruct : ShipConstruct {
 /* A ShipConstruct which is controlled by the Player.
@@ -30,6 +31,7 @@ Integrated with various UI objects.
 
 	// Remove public nature of scrapmetal and pick a new default.
 	public int scrapmetal = 500;
+	// TODO(Derek): Remove the 'in placement mode' bool and switch over to an enum StateMachine.  (PlayerGUI?).
 	public bool in_placement_mode = false;
 
 	protected new void Start () {
@@ -45,9 +47,15 @@ Integrated with various UI objects.
 	*/
 		base.Update();
 		if (Input.GetKeyDown(KeyCode.P)) {
+			if (PlayerGUI.main.guistate == PlayerGUI.GUIState.editing) {
+				// Since editing is in progress, the menu can't be dropped.
+				// Consider maybe causing this to drop all editing contexts?  IDK.
+				return;
+			}
 			in_placement_mode = !in_placement_mode;
 			SetPlacementModeText();
 			ShipTileEditor.main.SetConstructableTileVisibility(in_placement_mode);
+			PlayerGUI.main.ToggleEditState();
 		}
 
 	}

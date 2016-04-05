@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+using System.ComponentModel;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
 public class ShipTile : MonoBehaviour {
 
@@ -37,5 +41,26 @@ public class ShipTile : MonoBehaviour {
 		if (GetComponents<ShipTile>().Length > 1) {
 			throw new UnityException("Too many object controllers for object!");
 		}
+	}
+
+	public void OnMouseEnter() {
+		Debug.Log("Mouse Enter at (" + coordinates.x + ", " + coordinates.y + ")");
+	}
+
+	public void OnMouseExit() {
+		Debug.Log("Mouse Exit at (" + coordinates.x + ", " + coordinates.y + ")");
+	}
+
+	public void OnMouseDown() {
+		/* Called when clicked by the player's mouse. */
+		Debug.Log("Mouse Down at (" + coordinates.x + ", " + coordinates.y + ")");
+		PlayerGUI.main.ShipTileClicked(this);
+	}
+
+	public virtual EditorContextMenu AttachEditorContextMenu() {
+		/* Attaches a context menu to this ShipTile.  Overridden by each child.
+
+		This virtual implementation should never surface; it should always be overridden. */
+		throw new NotImplementedException("No override exists for this ShipTile type for AttachEditorContextMenu!");
 	}
 }

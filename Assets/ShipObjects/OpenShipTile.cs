@@ -25,4 +25,10 @@ TODO(Derek): Add the ability to outfit to a functional tile.
 	protected new void Update () {
 		base.Update();
 	}
+
+	public override EditorContextMenu AttachEditorContextMenu() {
+		/* Attaches a context menu to this OpenShipTile.  Overridde of ShipTile.AttachEditorContextMenu. */
+		print("Nailed it");
+		return gameObject.AddComponent<OpenShipTileMenu>();
+	}
 }
