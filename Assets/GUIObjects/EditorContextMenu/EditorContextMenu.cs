@@ -37,7 +37,7 @@ public class EditorContextMenu : MonoBehaviour {
 	}
 
 	void Update () {
-		//PrintMouseInfo();
+		// PrintMouseInfo();
 	}
 
 	void OnDestroy() {
