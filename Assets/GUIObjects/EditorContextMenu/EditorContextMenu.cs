@@ -29,10 +29,9 @@ public class EditorContextMenu : MonoBehaviour {
 		int num_actions = actions.Count;
 		for (int i = 0; i < num_actions; ++i) {
 			GameObject ecma_gameobj = Instantiate(ParticleDict.get().editor_context_menu_action) as GameObject;
-			ParticleSystem system = ecma_gameobj.GetComponent<ParticleSystem>();
-			system.transform.parent = transform;
-			system.transform.localPosition = Vector3.zero;
-			actions[i].SetUpParticleSystem(i, num_actions, system);
+			ecma_gameobj.transform.parent = transform;
+            ecma_gameobj.transform.localPosition = Vector3.zero;
+			actions[i].ConfigureRegion(i, num_actions, ecma_gameobj);
 		}
 	}
 
